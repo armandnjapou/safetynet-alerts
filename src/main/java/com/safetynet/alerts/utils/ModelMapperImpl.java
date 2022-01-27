@@ -30,13 +30,8 @@ public class ModelMapperImpl implements ModelMapper {
     }
 
     @Override
-    public JSONObject mapDatafromJsonFileToJsonObject(String path) {
+    public JSONObject mapDatafromJsonFileToJsonObject(String path) throws IOException, ParseException {
         JSONParser parser = new JSONParser();
-        try {
-            return (JSONObject) parser.parse(new FileReader(path));
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return (JSONObject) parser.parse(new FileReader(path));
     }
 }

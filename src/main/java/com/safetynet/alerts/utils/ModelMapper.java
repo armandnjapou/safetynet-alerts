@@ -5,8 +5,10 @@ import com.safetynet.alerts.models.MedicalRecord;
 import com.safetynet.alerts.models.Person;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
 
 
+import java.io.IOException;
 import java.util.List;
 
 public interface ModelMapper {
@@ -14,5 +16,5 @@ public interface ModelMapper {
     List<MedicalRecord> mapMedicalRecordsFromJson(JSONArray medicalRecords);
     List<FireStation> mapFireStationFromJson(JSONArray fireStations);
 
-    JSONObject mapDatafromJsonFileToJsonObject(String path);
+    JSONObject mapDatafromJsonFileToJsonObject(String path) throws IOException, ParseException;
 }
