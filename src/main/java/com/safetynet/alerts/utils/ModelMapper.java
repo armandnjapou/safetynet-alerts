@@ -12,9 +12,8 @@ import java.io.IOException;
 import java.util.List;
 
 public interface ModelMapper {
-    List<Person> mapPersonsFromJson(JSONArray persons);
+    List<Person> mapPersonsFromJson(JSONArray persons) throws IOException, ParseException;
     List<MedicalRecord> mapMedicalRecordsFromJson(JSONArray medicalRecords);
     List<FireStation> mapFireStationFromJson(JSONArray fireStations);
-
     JSONObject mapDatafromJsonFileToJsonObject(String path) throws IOException, ParseException;
 }

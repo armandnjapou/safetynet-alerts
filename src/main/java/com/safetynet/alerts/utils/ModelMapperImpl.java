@@ -10,13 +10,26 @@ import org.json.simple.parser.ParseException;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ModelMapperImpl implements ModelMapper {
-
     @Override
     public List<Person> mapPersonsFromJson(JSONArray persons) {
-        return null;
+        List<Person> personList = new ArrayList<>();
+        for(Object object : persons){
+            JSONObject personObject = (JSONObject) object;
+            Person person = new Person();
+            person.setFirstName(personObject.get("firstName").toString());
+            person.setLastName(personObject.get("lastName").toString());
+            person.setAddress(personObject.get("address").toString());
+            person.setCity(personObject.get("city").toString());
+            person.setZip(personObject.get("zip").toString());
+            person.setPhone(personObject.get("phone").toString());
+            person.setEmail(personObject.get("email").toString());
+            personList.add(person);
+        }
+        return personList;
     }
 
     @Override
