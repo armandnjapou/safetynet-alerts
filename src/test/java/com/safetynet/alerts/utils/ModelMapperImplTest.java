@@ -1,5 +1,6 @@
 package com.safetynet.alerts.utils;
 
+import com.safetynet.alerts.models.MedicalRecord;
 import com.safetynet.alerts.models.Person;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -72,6 +73,12 @@ class ModelMapperImplTest {
             List<Person> persons =  modelMapper.mapPersonsFromJson((JSONArray) json.get("persons"));
             Assertions.assertTrue(persons.stream().allMatch(person -> person.getFirstName() != null && person.getLastName() != null
                     && person.getAddress() != null && person.getZip() != null && person.getCity() != null && person.getPhone() != null && person.getEmail() != null ));
+        }
+
+        @Test
+        public void should_return_list_of_23_medical_records_when_medical_records_from_json() {
+            List<MedicalRecord> medicalRecords =  modelMapper.mapMedicalRecordsFromJson((JSONArray) json.get("medicalrecords"));
+            Assertions.assertEquals(23, medicalRecords.size());
         }
     }
 }

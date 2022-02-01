@@ -3,6 +3,8 @@ package com.safetynet.alerts.utils;
 import com.safetynet.alerts.models.FireStation;
 import com.safetynet.alerts.models.MedicalRecord;
 import com.safetynet.alerts.models.Person;
+import com.safetynet.alerts.models.valueobjects.Allergy;
+import com.safetynet.alerts.models.valueobjects.Medication;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -34,7 +36,36 @@ public class ModelMapperImpl implements ModelMapper {
 
     @Override
     public List<MedicalRecord> mapMedicalRecordsFromJson(JSONArray medicalRecords) {
-        return null;
+        List<MedicalRecord> medicalRecordList = new ArrayList<>();
+        for (Object object : medicalRecords) {
+            JSONObject medicalRecordObject = (JSONObject) object;
+            MedicalRecord medicalRecord = new MedicalRecord();
+            medicalRecord.setFirstName(medicalRecordObject.get("firstName").toString());
+            medicalRecord.setLastName(medicalRecordObject.get("lastName").toString());
+            medicalRecord.setBirthdate(medicalRecordObject.get("birthdate").toString());
+
+            List<Medication> medications = new ArrayList<>();
+            JSONArray medicationsFromObject = (JSONArray) medicalRecordObject.get("medications");
+            if (medicationsFromObject.size() > 0) {
+                for (Object medicationObject : medicationsFromObject) {
+                    Medication medication = new Medication(medicationObject.toString());
+                    medications.add(medication);
+                }
+            }
+            medicalRecord.setMedications(medications);
+
+            List<Allergy> allergies = new ArrayList<>();
+            JSONArray allergiesFromObject = (JSONArray) medicalRecordObject.get("allergies");
+            if (allergiesFromObject.size() > 0) {
+                for (Object allergyObject : allergiesFromObject) {
+                    Allergy allergy = new Allergy(allergyObject.toString());
+                    allergies.add(allergy);
+                }
+            }
+            medicalRecord.setAllergies(allergies);
+            medicalRecordList.add(medicalRecord);
+        }
+        return medicalRecordList;
     }
 
     @Override
