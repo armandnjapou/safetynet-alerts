@@ -63,7 +63,7 @@ class ModelMapperImplTest {
         }
 
         @Test
-        public void should_return_true_when_verify_if_all_mapped_values_are_not_null() throws IOException, ParseException {
+        public void should_return_true_when_verify_if_all_mapped_persons_are_not_null() throws IOException, ParseException {
             List<Person> persons =  modelMapper.mapPersonsFromJson((JSONArray) json.get("persons"));
             Assertions.assertTrue(persons.stream().allMatch(Objects::nonNull));
         }
