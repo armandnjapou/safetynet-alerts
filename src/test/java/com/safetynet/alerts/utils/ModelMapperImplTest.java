@@ -69,16 +69,49 @@ class ModelMapperImplTest {
         }
 
         @Test
-        public void should_return_true_when_verify_if_all_mapped_values_contains_non_null_values() throws IOException, ParseException {
+        public void should_return_true_when_verify_if_all_mapped_persons_contains_non_null_values() throws IOException, ParseException {
             List<Person> persons =  modelMapper.mapPersonsFromJson((JSONArray) json.get("persons"));
             Assertions.assertTrue(persons.stream().allMatch(person -> person.getFirstName() != null && person.getLastName() != null
                     && person.getAddress() != null && person.getZip() != null && person.getCity() != null && person.getPhone() != null && person.getEmail() != null ));
         }
 
         @Test
-        public void should_return_list_of_23_medical_records_when_medical_records_from_json() {
+        public void should_return_list_of_23_medical_records_when_map_medical_records_from_json() {
             List<MedicalRecord> medicalRecords =  modelMapper.mapMedicalRecordsFromJson((JSONArray) json.get("medicalrecords"));
             Assertions.assertEquals(23, medicalRecords.size());
+        }
+
+        @Test
+        public void should_return_true_when_verify_if_all_mapped_medical_records_are_not_null() {
+            List<MedicalRecord> medicalRecords = modelMapper.mapMedicalRecordsFromJson((JSONArray) json.get("medicalrecords"));
+            Assertions.assertTrue(medicalRecords.stream().allMatch(Objects::nonNull));
+        }
+
+        @Test
+        public void should_return_true_when_verify_if_all_mapped_medical_records_contains_non_null_values() {
+            List<MedicalRecord> medicalRecords = modelMapper.mapMedicalRecordsFromJson((JSONArray) json.get("medicalrecords"));
+            Assertions.assertTrue(medicalRecords.stream().allMatch(medicalRecord -> medicalRecord.getFirstName() != null && medicalRecord.getLastName() != null
+            && medicalRecord.getBirthdate() != null && medicalRecord.getMedications() != null && medicalRecord.getAllergies() != null));
+        }
+
+        @Test
+        public void should_throw_null_pointer_exception_when_map_medical_record_with_non_existing_parameter() {
+            try {
+                List<MedicalRecord> medicalRecords = modelMapper.mapMedicalRecordsFromJson((JSONArray) json.get("medicalrecord"));
+            } catch (Throwable t) {
+                throwable = t;
+            }
+            Assertions.assertTrue(throwable instanceof NullPointerException);
+        }
+
+        @Test
+        public void should_throw_null_pointer_exception_when_map_medical_record_with_wrong_parameter() {
+            try {
+                List<MedicalRecord> medicalRecords = modelMapper.mapMedicalRecordsFromJson((JSONArray) json.get("firestations"));
+            } catch (Throwable t) {
+                throwable = t;
+            }
+            Assertions.assertTrue(throwable instanceof NullPointerException);
         }
     }
 }
