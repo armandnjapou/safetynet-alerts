@@ -70,7 +70,15 @@ public class ModelMapperImpl implements ModelMapper {
 
     @Override
     public List<FireStation> mapFireStationFromJson(JSONArray fireStations) {
-        return null;
+        List<FireStation> fireStationList = new ArrayList<>();
+        for (Object object : fireStations) {
+            JSONObject fireStationObject = (JSONObject) object;
+            FireStation fireStation = new FireStation();
+            fireStation.setAddress(fireStationObject.get("address").toString());
+            fireStation.setStation(Integer.parseInt(fireStationObject.get("station").toString()));
+            fireStationList.add(fireStation);
+        }
+        return fireStationList;
     }
 
     @Override

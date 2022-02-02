@@ -1,5 +1,6 @@
 package com.safetynet.alerts.utils;
 
+import com.safetynet.alerts.models.FireStation;
 import com.safetynet.alerts.models.MedicalRecord;
 import com.safetynet.alerts.models.Person;
 import org.json.simple.JSONArray;
@@ -105,13 +106,31 @@ class ModelMapperImplTest {
         }
 
         @Test
-        public void should_throw_null_pointer_exception_when_map_medical_record_with_wrong_parameter() {
+        public void should_throw_null_pointer_exception_when_map_medical_record_with_firestation_parameter() {
             try {
                 List<MedicalRecord> medicalRecords = modelMapper.mapMedicalRecordsFromJson((JSONArray) json.get("firestations"));
             } catch (Throwable t) {
                 throwable = t;
             }
             Assertions.assertTrue(throwable instanceof NullPointerException);
+        }
+
+        @Test
+        public void should_return_list_of_13_fire_stations_when_map_fire_stations_from_json() {
+            List<FireStation> fireStations =  modelMapper.mapFireStationFromJson((JSONArray) json.get("firestations"));
+            Assertions.assertEquals(13, fireStations.size());
+        }
+
+        @Test
+        public void should_return_true_when_verify_if_all_mapped_fire_stations_are_not_null() {
+            List<FireStation> fireStations = modelMapper.mapFireStationFromJson((JSONArray) json.get("firestations"));
+            Assertions.assertTrue(fireStations.stream().allMatch(Objects::nonNull));
+        }
+
+        @Test
+        public void should_return_true_when_verify_if_all_mapped_fire_stations_contains_non_null_values() {
+            List<FireStation> fireStations = modelMapper.mapFireStationFromJson((JSONArray) json.get("firestations"));
+            Assertions.assertTrue(fireStations.stream().allMatch(fireStation -> fireStation.getAddress() != null && fireStation.getStation() > 0));
         }
     }
 }
