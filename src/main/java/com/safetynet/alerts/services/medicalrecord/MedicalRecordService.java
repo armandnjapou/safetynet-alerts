@@ -4,7 +4,7 @@ import com.safetynet.alerts.models.MedicalRecord;
 
 import java.util.List;
 
-public interface MedicalRecordData {
+public interface MedicalRecordService {
     List<MedicalRecord> findAll();
     MedicalRecord findByFirstNameAndLastName(String firstName, String lastName);
     MedicalRecord add(MedicalRecord person);

@@ -4,7 +4,7 @@ import com.safetynet.alerts.models.FireStation;
 
 import java.util.List;
 
-public interface FireStationData {
+public interface FireStationService {
     List<FireStation> findAll();
     FireStation findByAddress(String address);
     FireStation add(FireStation fireStation);

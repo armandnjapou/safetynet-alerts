@@ -4,7 +4,7 @@ import com.safetynet.alerts.models.Person;
 
 import java.util.List;
 
-public interface PersonData {
+public interface PersonService {
     List<Person> findAll();
     Person findByFirstNameAndLastName(String firstName, String lastName);
     Person add(Person person);
