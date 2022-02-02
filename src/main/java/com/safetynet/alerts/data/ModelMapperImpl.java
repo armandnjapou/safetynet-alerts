@@ -1,4 +1,4 @@
-package com.safetynet.alerts.utils;
+package com.safetynet.alerts.data;
 
 import com.safetynet.alerts.models.FireStation;
 import com.safetynet.alerts.models.MedicalRecord;
