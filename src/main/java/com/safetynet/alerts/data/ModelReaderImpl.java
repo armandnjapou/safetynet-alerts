@@ -15,9 +15,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModelMapperImpl implements ModelMapper {
+public class ModelReaderImpl implements ModelReader {
     @Override
-    public List<Person> mapPersonsFromJson(JSONArray persons) {
+    public List<Person> readPersonsFromJson(JSONArray persons) {
         List<Person> personList = new ArrayList<>();
         for(Object object : persons){
             JSONObject personObject = (JSONObject) object;
@@ -35,7 +35,7 @@ public class ModelMapperImpl implements ModelMapper {
     }
 
     @Override
-    public List<MedicalRecord> mapMedicalRecordsFromJson(JSONArray medicalRecords) {
+    public List<MedicalRecord> readMedicalRecordsFromJson(JSONArray medicalRecords) {
         List<MedicalRecord> medicalRecordList = new ArrayList<>();
         for (Object object : medicalRecords) {
             JSONObject medicalRecordObject = (JSONObject) object;
@@ -69,7 +69,7 @@ public class ModelMapperImpl implements ModelMapper {
     }
 
     @Override
-    public List<FireStation> mapFireStationFromJson(JSONArray fireStations) {
+    public List<FireStation> readFireStationFromJson(JSONArray fireStations) {
         List<FireStation> fireStationList = new ArrayList<>();
         for (Object object : fireStations) {
             JSONObject fireStationObject = (JSONObject) object;
@@ -82,7 +82,7 @@ public class ModelMapperImpl implements ModelMapper {
     }
 
     @Override
-    public JSONObject mapDatafromJsonFileToJsonObject(String path) throws IOException, ParseException {
+    public JSONObject readDatafromJsonFileToJsonObject(String path) throws IOException, ParseException {
         JSONParser parser = new JSONParser();
         return (JSONObject) parser.parse(new FileReader(path));
     }
