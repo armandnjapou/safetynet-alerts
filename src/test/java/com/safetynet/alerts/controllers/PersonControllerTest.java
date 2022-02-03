@@ -20,7 +20,7 @@ class PersonControllerTest {
     private PersonService personService;
 
     @Test
-    public void should_return_status_ok_when_get_persons() throws Exception {
+    public void should_return_status_200_when_get_persons() throws Exception {
         mockMvc.perform(get("/person"))
                 .andExpect(status().isOk());
     }
