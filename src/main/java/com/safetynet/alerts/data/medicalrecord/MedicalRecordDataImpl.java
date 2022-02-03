@@ -5,6 +5,7 @@ import com.safetynet.alerts.data.ModelReaderImpl;
 import com.safetynet.alerts.models.MedicalRecord;
 import com.safetynet.alerts.models.valueobjects.Allergy;
 import com.safetynet.alerts.models.valueobjects.Medication;
+import com.safetynet.alerts.utils.Constants;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -19,18 +20,18 @@ public class MedicalRecordDataImpl implements MedicalRecordData {
 
     @Override
     public List<MedicalRecord> findAll() throws IOException, ParseException {
-        JSONObject json = modelReader.readDatafromJsonFile("src/main/resources/static/data.json");
-        JSONArray medicalRecords = (JSONArray) json.get("medicalrecords");
+        JSONObject json = modelReader.readDatafromJsonFile(Constants.JSON_PATH);
+        JSONArray medicalRecords = (JSONArray) json.get(Constants.MEDICAL_RECORDS);
         List<MedicalRecord> medicalRecordList = new ArrayList<>();
         for (Object object : medicalRecords) {
             JSONObject medicalRecordObject = (JSONObject) object;
             MedicalRecord medicalRecord = new MedicalRecord();
-            medicalRecord.setFirstName(medicalRecordObject.get("firstName").toString());
-            medicalRecord.setLastName(medicalRecordObject.get("lastName").toString());
-            medicalRecord.setBirthdate(medicalRecordObject.get("birthdate").toString());
+            medicalRecord.setFirstName(medicalRecordObject.get(Constants.FIRSTNAME).toString());
+            medicalRecord.setLastName(medicalRecordObject.get(Constants.LASTNAME).toString());
+            medicalRecord.setBirthdate(medicalRecordObject.get(Constants.BIRTHDATE).toString());
 
             List<Medication> medications = new ArrayList<>();
-            JSONArray medicationsFromObject = (JSONArray) medicalRecordObject.get("medications");
+            JSONArray medicationsFromObject = (JSONArray) medicalRecordObject.get(Constants.MEDICATIONS);
             if (medicationsFromObject.size() > 0) {
                 for (Object medicationObject : medicationsFromObject) {
                     Medication medication = new Medication(medicationObject.toString());
@@ -40,7 +41,7 @@ public class MedicalRecordDataImpl implements MedicalRecordData {
             medicalRecord.setMedications(medications);
 
             List<Allergy> allergies = new ArrayList<>();
-            JSONArray allergiesFromObject = (JSONArray) medicalRecordObject.get("allergies");
+            JSONArray allergiesFromObject = (JSONArray) medicalRecordObject.get(Constants.ALLERGIES);
             if (allergiesFromObject.size() > 0) {
                 for (Object allergyObject : allergiesFromObject) {
                     Allergy allergy = new Allergy(allergyObject.toString());
