@@ -1,13 +1,11 @@
 package com.safetynet.alerts.services.firestation;
 
 import com.safetynet.alerts.models.FireStation;
+import org.json.simple.parser.ParseException;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface FireStationService {
-    List<FireStation> findAll();
-    FireStation findByAddress(String address);
-    FireStation add(FireStation fireStation);
-    FireStation updateStationNumber(int stationNumber);
-    void delete(FireStation fireStation);
+    List<FireStation> findAll() throws IOException, ParseException;
 }
