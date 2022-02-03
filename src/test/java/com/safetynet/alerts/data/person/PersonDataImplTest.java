@@ -10,13 +10,13 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
-class PersonDataTest {
+class PersonDataImplTest {
 
-    private static IPersonData personData;
+    private static PersonData personData;
 
     @BeforeAll
     public static void setUp() {
-        personData = new PersonData();
+        personData = new PersonDataImpl();
     }
 
     @Test

@@ -10,12 +10,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
-class FireStationDataTest {
-    private static IFireStationData fireStationData;
+class FireStationDataImplTest {
+    private static FireStationData fireStationData;
 
     @BeforeAll
     private static void setUp() {
-        fireStationData = new FireStationData();
+        fireStationData = new FireStationDataImpl();
     }
 
     @Test

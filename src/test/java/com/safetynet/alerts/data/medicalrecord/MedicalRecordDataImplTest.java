@@ -10,14 +10,14 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
-class MedicalRecordDataTest {
+class MedicalRecordDataImplTest {
 
-    private static IMedicalRecordData medicalRecordData;
+    private static MedicalRecordData medicalRecordData;
     private static Throwable throwable;
 
     @BeforeAll
     public static void setUp() {
-        medicalRecordData = new MedicalRecordData();
+        medicalRecordData = new MedicalRecordDataImpl();
     }
 
     @Test
