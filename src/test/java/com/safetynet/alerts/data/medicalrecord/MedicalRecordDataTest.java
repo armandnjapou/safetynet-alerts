@@ -21,7 +21,7 @@ class MedicalRecordDataTest {
     }
 
     @Test
-    public void should_return_list_of_23_medical_records_when_read_medical_records_from_json() throws IOException, ParseException {
+    public void should_return_list_of_23_medical_records_when_find_all_medical_records() throws IOException, ParseException {
         List<MedicalRecord> medicalRecords = medicalRecordData.findAll();
         Assertions.assertEquals(23, medicalRecords.size());
     }

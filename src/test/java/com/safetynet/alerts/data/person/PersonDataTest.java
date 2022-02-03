@@ -20,7 +20,7 @@ class PersonDataTest {
     }
 
     @Test
-    public void should_return_list_of_23_persons_when_read_person_from_json() throws IOException, ParseException {
+    public void should_return_list_of_23_persons_when_find_all_persons() throws IOException, ParseException {
         List<Person> persons =  personData.findAll();
         Assertions.assertEquals(23, persons.size());
     }

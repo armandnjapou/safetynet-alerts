@@ -19,7 +19,7 @@ class FireStationDataTest {
     }
 
     @Test
-    public void should_return_list_of_13_fire_stations_when_find_all() throws IOException, ParseException {
+    public void should_return_list_of_13_fire_stations_when_find_all_fire_stations() throws IOException, ParseException {
         List<FireStation> fireStations =  fireStationData.findAll();
         Assertions.assertEquals(13, fireStations.size());
     }
