@@ -21,7 +21,7 @@ class FireStationControllerTest {
 
     @Test
     public void should_return_status_ok_when_get_fire_stations() throws Exception {
-        mockMvc.perform(get("/firestations"))
+        mockMvc.perform(get("/firestation"))
                 .andExpect(status().isOk());
     }
 }

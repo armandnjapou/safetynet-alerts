@@ -16,7 +16,7 @@ public class PersonController {
     @Autowired
     private PersonService personService;
 
-    @GetMapping("/persons")
+    @GetMapping("/person")
     public List<Person> findAll() throws IOException, ParseException {
         return personService.findAll();
     }

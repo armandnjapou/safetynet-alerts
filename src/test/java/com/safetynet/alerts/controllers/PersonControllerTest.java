@@ -21,7 +21,7 @@ class PersonControllerTest {
 
     @Test
     public void should_return_status_ok_when_get_persons() throws Exception {
-        mockMvc.perform(get("/persons"))
+        mockMvc.perform(get("/person"))
                 .andExpect(status().isOk());
     }
 }

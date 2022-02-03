@@ -16,7 +16,7 @@ public class FireStationController {
     @Autowired
     private FireStationService fireStationService;
 
-    @GetMapping("/firestations")
+    @GetMapping("/firestation")
     public List<FireStation> getFireStations() throws IOException, ParseException {
         return fireStationService.findAll();
     }
