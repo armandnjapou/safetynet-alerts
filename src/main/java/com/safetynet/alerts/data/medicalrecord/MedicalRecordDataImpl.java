@@ -1,7 +1,7 @@
 package com.safetynet.alerts.data.medicalrecord;
 
-import com.safetynet.alerts.data.ModelReader;
-import com.safetynet.alerts.data.ModelReaderImpl;
+import com.safetynet.alerts.data.ProcessData;
+import com.safetynet.alerts.data.ProcessDataImpl;
 import com.safetynet.alerts.models.MedicalRecord;
 import com.safetynet.alerts.models.valueobjects.Allergy;
 import com.safetynet.alerts.models.valueobjects.Medication;
@@ -16,11 +16,11 @@ import java.util.List;
 
 public class MedicalRecordDataImpl implements MedicalRecordData {
 
-    private static final ModelReader modelReader = new ModelReaderImpl();
+    private static final ProcessData processData = new ProcessDataImpl();
 
     @Override
     public List<MedicalRecord> findAll() throws IOException, ParseException {
-        JSONObject json = modelReader.readDatafromJsonFile(Constants.JSON_PATH);
+        JSONObject json = processData.readDatafromJsonFile(Constants.JSON_PATH);
         JSONArray medicalRecords = (JSONArray) json.get(Constants.MEDICAL_RECORDS);
         List<MedicalRecord> medicalRecordList = new ArrayList<>();
         for (Object object : medicalRecords) {

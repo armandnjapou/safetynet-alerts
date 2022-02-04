@@ -5,6 +5,7 @@ import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 
-public interface ModelReader {
+public interface ProcessData {
     JSONObject readDatafromJsonFile(String path) throws IOException, ParseException;
+    void writeDataInJsonFile(String path, JSONObject json);
 }

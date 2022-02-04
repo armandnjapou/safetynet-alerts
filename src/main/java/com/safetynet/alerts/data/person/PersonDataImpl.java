@@ -1,7 +1,7 @@
 package com.safetynet.alerts.data.person;
 
-import com.safetynet.alerts.data.ModelReader;
-import com.safetynet.alerts.data.ModelReaderImpl;
+import com.safetynet.alerts.data.ProcessData;
+import com.safetynet.alerts.data.ProcessDataImpl;
 import com.safetynet.alerts.models.Person;
 import com.safetynet.alerts.utils.Constants;
 import org.json.simple.JSONArray;
@@ -14,11 +14,11 @@ import java.util.List;
 
 public class PersonDataImpl implements PersonData {
 
-    private static final ModelReader modelReader = new ModelReaderImpl();
+    private static final ProcessData processData = new ProcessDataImpl();
 
     @Override
     public List<Person> findAll() throws IOException, ParseException {
-        JSONObject json = modelReader.readDatafromJsonFile(Constants.JSON_PATH);
+        JSONObject json = processData.readDatafromJsonFile(Constants.JSON_PATH);
         JSONArray persons = (JSONArray) json.get(Constants.PERSONS);
         List<Person> personList = new ArrayList<>();
         for(Object object : persons){
