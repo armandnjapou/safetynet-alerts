@@ -11,6 +11,9 @@ class ModelReaderImplTest {
     private static ModelReader modelReader;
     private Throwable throwable;
     private JSONObject json;
+    private static final String PATH = "src/test/resources/test.json";
+    private static final String WRONG_PATH = "src/test/resources/file.json";
+    private static final String BAD_PATH = "src/main/java/com/safetynet/alerts/SafetyNetAlertsApplication.java";
 
     @BeforeAll
     private static void setUp() {
@@ -19,7 +22,7 @@ class ModelReaderImplTest {
 
     @Test
     public void should_return_json_object_of_size_3_when_read_data_from_local_json() throws IOException, ParseException {
-        json = modelReader.readDatafromJsonFile("src/test/resources/data.json");
+        json = modelReader.readDatafromJsonFile(PATH);
         int expectedSize = 3;
         Assertions.assertEquals(expectedSize, json.size());
     }
@@ -27,7 +30,7 @@ class ModelReaderImplTest {
     @Test
     public void should_throw_io_exception_when_read_data_from_unexisting_file() {
         try {
-            json = modelReader.readDatafromJsonFile("src/test/resources/file.json");
+            json = modelReader.readDatafromJsonFile(WRONG_PATH);
         } catch (Throwable throwable) {
             this.throwable = throwable;
         }
@@ -37,7 +40,7 @@ class ModelReaderImplTest {
     @Test
     public void should_throw_parse_exception_when_read_data_from_non_json_file() {
         try {
-            json = modelReader.readDatafromJsonFile("src/main/java/com/safetynet/alerts/SafetyNetAlertsApplication.java");
+            json = modelReader.readDatafromJsonFile(BAD_PATH);
         } catch (Throwable throwable) {
             this.throwable = throwable;
         }
