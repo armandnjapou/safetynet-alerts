@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface PersonData {
     List<Person> findAll() throws IOException, ParseException;
+    Person findByFirstNameAndLastName(String firstName, String lastName);
 }

@@ -37,4 +37,16 @@ class PersonDataImplTest {
         Assertions.assertTrue(persons.stream().allMatch(person -> person.getFirstName() != null && person.getLastName() != null
                 && person.getAddress() != null && person.getZip() != null && person.getCity() != null && person.getPhone() != null && person.getEmail() != null ));
     }
+
+    @Test
+    public void should_return_person_with_firstname_allison_and_lastname_boyd_when_find_by_firstname_and_lastname_with_firstname_allison_and_lastname_boyd() {
+        Person person = personData.findByFirstNameAndLastName("Allison", "Boyd");
+        Assertions.assertTrue(person.getFirstName().equals("Allison") && person.getLastName().equals("Boyd"));
+    }
+
+    @Test
+    public void should_return_null_when_find_by_firstname_and_lastname_with_firstname_julie_and_lastname_philippe() {
+        Person person = personData.findByFirstNameAndLastName("Julie", "Philippe");
+        Assertions.assertNull(person);
+    }
 }
