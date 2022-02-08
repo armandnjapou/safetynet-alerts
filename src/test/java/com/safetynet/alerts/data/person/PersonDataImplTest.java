@@ -57,15 +57,4 @@ class PersonDataImplTest {
         personData.updatePerson(person);
         Assertions.assertEquals("Paris", personData.findByFirstNameAndLastName("Allison", "Boyd").getCity());
     }
-
-    @Test
-    public void should_throw_null_pointer_exception_when_update_person_with_null_parameter() {
-        Throwable throwable = null;
-        try {
-            personData.updatePerson(null);
-        } catch (Throwable t) {
-            throwable = t;
-        }
-        Assertions.assertTrue(throwable instanceof NullPointerException);
-    }
 }
