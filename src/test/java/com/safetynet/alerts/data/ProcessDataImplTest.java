@@ -1,5 +1,6 @@
 package com.safetynet.alerts.data;
 
+import com.safetynet.alerts.utils.Constants;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -17,7 +18,8 @@ class ProcessDataImplTest {
     private static final String BAD_PATH = "src/main/java/com/safetynet/alerts/SafetyNetAlertsApplication.java";
 
     @BeforeAll
-    private static void setUp() {
+    private static void
+    setUp() {
         processData = new ProcessDataImpl();
     }
 
@@ -70,5 +72,39 @@ class ProcessDataImplTest {
         JSONObject expectedObject = (JSONObject) expectedArray.get(0);
 
         Assertions.assertEquals("Toto", expectedObject.get("firstName"));
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void should_return_json_object_with_all_types_when_build_json_object_with_fire_stations() {
+        JSONArray fireStations = new JSONArray();
+        JSONObject fireStationObject = new JSONObject();
+        fireStationObject.put("address", "rue de beauvoir");
+        fireStationObject.put("station", "2");
+        fireStations.add(fireStationObject);
+        JSONObject expected = processData.buildJSONObject(Constants.FIRE_STATIONS, fireStations);
+        Assertions.assertTrue(expected.get(Constants.PERSONS) != null && expected.get(Constants.FIRE_STATIONS) != null && expected.get(Constants.MEDICAL_RECORDS) != null);
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void should_throw_null_pointer_exception_when_build_json_object_with_null_object_type_and_fire_stations() {
+        try {
+            JSONArray fireStations = new JSONArray();
+            JSONObject fireStationObject = new JSONObject();
+            fireStationObject.put("address", "rue de beauvoir");
+            fireStationObject.put("station", "2");
+            fireStations.add(fireStationObject);
+            JSONObject expected = processData.buildJSONObject(null, fireStations);
+        } catch (Throwable t) {
+            throwable = t;
+        }
+        Assertions.assertTrue(throwable instanceof NullPointerException);
+    }
+
+    @Test
+    public void should_return_null_when_build_json_object_with_fire_stations_and_null_json_array() {
+        JSONObject expected = processData.buildJSONObject(Constants.FIRE_STATIONS, null);
+        Assertions.assertNull(expected);
     }
 }
