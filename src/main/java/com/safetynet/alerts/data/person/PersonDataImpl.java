@@ -1,5 +1,6 @@
 package com.safetynet.alerts.data.person;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.alerts.data.ProcessData;
 import com.safetynet.alerts.data.ProcessDataImpl;
 import com.safetynet.alerts.models.Person;
@@ -8,12 +9,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class PersonDataImpl implements PersonData {
 
@@ -55,5 +56,36 @@ public class PersonDataImpl implements PersonData {
             LOGGER.error("Parse exception while finding all persons. Trace : {}", e.toString());
         }
         return person;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public void updatePerson(Person person) {
+        String methodName = "updatePerson";
+        if (person != null) {
+            Person foundPerson = findByFirstNameAndLastName(person.getFirstName(), person.getLastName());
+            if (foundPerson != null) {
+                foundPerson.setAddress(person.getAddress());
+                foundPerson.setZip(person.getZip());
+                foundPerson.setCity(person.getCity());
+                foundPerson.setEmail(person.getEmail());
+                foundPerson.setPhone(person.getPhone());
+                try {
+                    List<Person> persons = findAll();
+                    JSONArray personsArray = new JSONArray();
+                    for (Person p : persons) {
+                        if (p.getLastName().equals(foundPerson.getLastName()) && p.getFirstName().equals(foundPerson.getFirstName()))
+                            personsArray.add(JSONValue.parse(new ObjectMapper().writeValueAsString(foundPerson)));
+                        else personsArray.add(JSONValue.parse(new ObjectMapper().writeValueAsString(p)));
+                    }
+                    JSONObject json = processData.buildJSONObject(Constants.PERSONS, personsArray);
+                    processData.writeDataInJsonFile(Constants.JSON_PATH, json);
+                } catch (IOException e) {
+                    LOGGER.error("IO Exception while finding all persons. Trace : {}", e.toString());
+                } catch (ParseException e) {
+                    LOGGER.error("Parse exception while finding all persons. Trace : {}", e.toString());
+                }
+            } else LOGGER.error("No person found with firstname {} and lastname {}", person.getFirstName(), person.getLastName());
+        } else LOGGER.error("Null parameter for method : {}", methodName);
     }
 }

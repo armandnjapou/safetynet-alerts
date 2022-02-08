@@ -49,4 +49,23 @@ class PersonDataImplTest {
         Person person = personData.findByFirstNameAndLastName("Julie", "Philippe");
         Assertions.assertNull(person);
     }
+
+    @Test
+    public void should_update_person_city_to_paris_when_update_person_city_to_paris() {
+        Person person = personData.findByFirstNameAndLastName("Allison", "Boyd");
+        person.setCity("Paris");
+        personData.updatePerson(person);
+        Assertions.assertEquals("Paris", personData.findByFirstNameAndLastName("Allison", "Boyd").getCity());
+    }
+
+    @Test
+    public void should_throw_null_pointer_exception_when_update_person_with_null_parameter() {
+        Throwable throwable = null;
+        try {
+            personData.updatePerson(null);
+        } catch (Throwable t) {
+            throwable = t;
+        }
+        Assertions.assertTrue(throwable instanceof NullPointerException);
+    }
 }
