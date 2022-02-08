@@ -13,7 +13,8 @@ class ProcessDataImplTest {
     private static ProcessData processData;
     private Throwable throwable;
     private JSONObject json;
-    private static final String PATH = "src/test/resources/test.json";
+    private static final String READ_PATH = "src/test/resources/read.json";
+    private static final String WRITE_PATH = "src/test/resources/write.json";
     private static final String WRONG_PATH = "src/test/resources/file.json";
     private static final String BAD_PATH = "src/main/java/com/safetynet/alerts/SafetyNetAlertsApplication.java";
 
@@ -25,7 +26,7 @@ class ProcessDataImplTest {
 
     @Test
     public void should_return_json_object_of_size_3_when_read_data_from_local_json() throws IOException, ParseException {
-        json = processData.readDatafromJsonFile(PATH);
+        json = processData.readDatafromJsonFile(READ_PATH);
         int expectedSize = 3;
         Assertions.assertEquals(expectedSize, json.size());
     }
@@ -65,9 +66,9 @@ class ProcessDataImplTest {
         person.put("email", "toto@spin.com");
         persons.add(person);
         jsonObject.put("persons", persons);
-        processData.writeDataInJsonFile(PATH, jsonObject);
+        processData.writeDataInJsonFile(WRITE_PATH, jsonObject);
 
-        json = processData.readDatafromJsonFile(PATH);
+        json = processData.readDatafromJsonFile(WRITE_PATH);
         JSONArray expectedArray = (JSONArray) json.get("persons");
         JSONObject expectedObject = (JSONObject) expectedArray.get(0);
 
