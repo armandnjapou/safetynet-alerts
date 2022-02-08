@@ -20,12 +20,6 @@ class PersonDataImplTest {
     }
 
     @Test
-    public void should_return_list_of_23_persons_when_find_all_persons() throws IOException, ParseException {
-        List<Person> persons =  personData.findAll();
-        Assertions.assertEquals(23, persons.size());
-    }
-
-    @Test
     public void should_return_true_when_verify_if_all_read_persons_are_not_null() throws IOException, ParseException {
         List<Person> persons =  personData.findAll();
         Assertions.assertTrue(persons.stream().allMatch(Objects::nonNull));
@@ -56,5 +50,19 @@ class PersonDataImplTest {
         person.setCity("Paris");
         personData.updatePerson(person);
         Assertions.assertEquals("Paris", personData.findByFirstNameAndLastName("Allison", "Boyd").getCity());
+    }
+
+    @Test
+    public void should_add_person_with_firstname_julie_when_add_person_with_firstname_julie() {
+        Person expected = new Person();
+        expected.setFirstName("Julie");
+        expected.setLastName("Philip");
+        expected.setAddress("2345 Calm St");
+        expected.setCity("Manishma");
+        expected.setZip("67543");
+        expected.setPhone("734-900-4367");
+        expected.setEmail("j.philip@car.fr");
+        personData.addPerson(expected);
+        Assertions.assertEquals(personData.findByFirstNameAndLastName("Julie", "Philip").getFirstName(), expected.getFirstName());
     }
 }

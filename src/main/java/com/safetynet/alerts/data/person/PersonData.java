@@ -10,4 +10,5 @@ public interface PersonData {
     List<Person> findAll() throws IOException, ParseException;
     Person findByFirstNameAndLastName(String firstName, String lastName);
     void updatePerson(Person person);
+    void addPerson(Person person);
 }

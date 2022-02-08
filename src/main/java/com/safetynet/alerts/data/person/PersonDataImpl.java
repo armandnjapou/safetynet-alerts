@@ -20,6 +20,7 @@ public class PersonDataImpl implements PersonData {
 
     private static final ProcessData processData = new ProcessDataImpl();
     private static final Logger LOGGER = LogManager.getLogger(PersonDataImpl.class);
+    private String methodName = null;
 
     @Override
     public List<Person> findAll() throws IOException, ParseException {
@@ -61,7 +62,8 @@ public class PersonDataImpl implements PersonData {
     @Override
     @SuppressWarnings("unchecked")
     public void updatePerson(Person person) {
-        String methodName = "updatePerson";
+        methodName = "updatePerson";
+        LOGGER.info("Start of method : {}", methodName);
         if (person != null) {
             Person foundPerson = findByFirstNameAndLastName(person.getFirstName(), person.getLastName());
             if (foundPerson != null) {
@@ -87,5 +89,27 @@ public class PersonDataImpl implements PersonData {
                 }
             } else LOGGER.error("No person found with firstname {} and lastname {}", person.getFirstName(), person.getLastName());
         } else LOGGER.error("Null parameter for method : {}", methodName);
+        LOGGER.info("End of method : {}", methodName);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public void addPerson(Person person) {
+        methodName = "addPerson";
+        LOGGER.info("Start of method : {}", methodName);
+        if (person != null) {
+            try {
+                List<Person> persons = findAll();
+                JSONArray personsArray = (JSONArray) JSONValue.parse(new ObjectMapper().writeValueAsString(persons));
+                personsArray.add(JSONValue.parse(new ObjectMapper().writeValueAsString(person)));
+                JSONObject json = processData.buildJSONObject(Constants.PERSONS, personsArray);
+                processData.writeDataInJsonFile(Constants.JSON_PATH, json);
+            } catch (IOException e) {
+                LOGGER.error("IO Exception while finding all persons. Trace : {}", e.toString());
+            } catch (ParseException e) {
+                LOGGER.error("Parse exception while finding all persons. Trace : {}", e.toString());
+            }
+        } else LOGGER.error("Null parameter for method : {}", methodName);
+        LOGGER.info("End of method : {}", methodName);
     }
 }
