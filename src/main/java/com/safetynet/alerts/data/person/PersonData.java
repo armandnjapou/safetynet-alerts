@@ -1,5 +1,6 @@
 package com.safetynet.alerts.data.person;
 
+import com.safetynet.alerts.exceptions.AlreadyExistingException;
 import com.safetynet.alerts.models.Person;
 import org.json.simple.parser.ParseException;
 
@@ -10,5 +11,5 @@ public interface PersonData {
     List<Person> findAll() throws IOException, ParseException;
     Person findByFirstNameAndLastName(String firstName, String lastName);
     void updatePerson(Person person);
-    void addPerson(Person person);
+    void addPerson(Person person) throws AlreadyExistingException;
 }

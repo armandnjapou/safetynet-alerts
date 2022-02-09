@@ -3,6 +3,7 @@ package com.safetynet.alerts.data.person;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.alerts.data.ProcessData;
 import com.safetynet.alerts.data.ProcessDataImpl;
+import com.safetynet.alerts.exceptions.AlreadyExistingException;
 import com.safetynet.alerts.models.Person;
 import com.safetynet.alerts.utils.Constants;
 import org.apache.logging.log4j.LogManager;
@@ -94,21 +95,24 @@ public class PersonDataImpl implements PersonData {
 
     @Override
     @SuppressWarnings("unchecked")
-    public void addPerson(Person person) {
+    public void addPerson(Person person) throws AlreadyExistingException {
         methodName = "addPerson";
         LOGGER.info("Start of method : {}", methodName);
         if (person != null) {
-            try {
-                List<Person> persons = findAll();
-                JSONArray personsArray = (JSONArray) JSONValue.parse(new ObjectMapper().writeValueAsString(persons));
-                personsArray.add(JSONValue.parse(new ObjectMapper().writeValueAsString(person)));
-                JSONObject json = processData.buildJSONObject(Constants.PERSONS, personsArray);
-                processData.writeDataInJsonFile(Constants.JSON_PATH, json);
-            } catch (IOException e) {
-                LOGGER.error("IO Exception while finding all persons. Trace : {}", e.toString());
-            } catch (ParseException e) {
-                LOGGER.error("Parse exception while finding all persons. Trace : {}", e.toString());
-            }
+            Person p = findByFirstNameAndLastName(person.getFirstName(), person.getLastName());
+            if (p == null) {
+                try {
+                    List<Person> persons = findAll();
+                    JSONArray personsArray = (JSONArray) JSONValue.parse(new ObjectMapper().writeValueAsString(persons));
+                    personsArray.add(JSONValue.parse(new ObjectMapper().writeValueAsString(person)));
+                    JSONObject json = processData.buildJSONObject(Constants.PERSONS, personsArray);
+                    processData.writeDataInJsonFile(Constants.JSON_PATH, json);
+                } catch (IOException e) {
+                    LOGGER.error("IO Exception while finding all persons. Trace : {}", e.toString());
+                } catch (ParseException e) {
+                    LOGGER.error("Parse exception while finding all persons. Trace : {}", e.toString());
+                }
+            } else throw new AlreadyExistingException("Already existing object in data store...");
         } else LOGGER.error("Null parameter for method : {}", methodName);
         LOGGER.info("End of method : {}", methodName);
     }
