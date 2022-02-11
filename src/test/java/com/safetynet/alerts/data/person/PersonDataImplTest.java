@@ -49,7 +49,7 @@ class PersonDataImplTest {
     public void should_update_person_city_to_paris_when_update_person_city_to_paris() {
         Person person = personData.findByFirstNameAndLastName("Allison", "Boyd");
         person.setCity("Paris");
-        personData.updatePerson(person);
+        personData.update(person);
         Assertions.assertEquals("Paris", personData.findByFirstNameAndLastName("Allison", "Boyd").getCity());
     }
 
@@ -63,7 +63,7 @@ class PersonDataImplTest {
         expected.setZip("67543");
         expected.setPhone("734-900-4367");
         expected.setEmail("j.philip@car.fr");
-        personData.addPerson(expected);
+        personData.add(expected);
         Assertions.assertEquals(personData.findByFirstNameAndLastName("Julie", "Philip").getFirstName(), expected.getFirstName());
     }
 
@@ -79,7 +79,7 @@ class PersonDataImplTest {
         expected.setPhone("734-900-4367");
         expected.setEmail("j.philip@car.fr");
         try {
-            personData.addPerson(expected);
+            personData.add(expected);
         } catch (Throwable t) {
             throwable = t;
         }

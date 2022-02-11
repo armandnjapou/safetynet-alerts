@@ -10,6 +10,6 @@ import java.util.List;
 public interface PersonData {
     List<Person> findAll() throws IOException, ParseException;
     Person findByFirstNameAndLastName(String firstName, String lastName);
-    void updatePerson(Person person);
-    void addPerson(Person person) throws AlreadyExistingException;
+    void update(Person person);
+    void add(Person person) throws AlreadyExistingException;
 }

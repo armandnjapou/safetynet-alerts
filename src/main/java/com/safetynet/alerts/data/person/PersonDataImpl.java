@@ -62,7 +62,7 @@ public class PersonDataImpl implements PersonData {
 
     @Override
     @SuppressWarnings("unchecked")
-    public void updatePerson(Person person) {
+    public void update(Person person) {
         methodName = "updatePerson";
         LOGGER.info("Start of method : {}", methodName);
         if (person != null) {
@@ -95,7 +95,7 @@ public class PersonDataImpl implements PersonData {
 
     @Override
     @SuppressWarnings("unchecked")
-    public void addPerson(Person person) throws AlreadyExistingException {
+    public void add(Person person) throws AlreadyExistingException {
         methodName = "addPerson";
         LOGGER.info("Start of method : {}", methodName);
         if (person != null) {
