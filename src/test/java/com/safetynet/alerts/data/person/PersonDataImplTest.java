@@ -3,6 +3,7 @@ package com.safetynet.alerts.data.person;
 import com.safetynet.alerts.exceptions.AlreadyExistingException;
 import com.safetynet.alerts.models.Person;
 import org.json.simple.parser.ParseException;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,12 @@ class PersonDataImplTest {
     @BeforeAll
     public static void setUp() {
         personData = new PersonDataImpl();
+    }
+
+    @AfterAll
+    public static void tearDown() {
+        Person p = personData.findByFirstNameAndLastName("Miguel", "Ruiz");
+        personData.delete(p);
     }
 
     @Test
@@ -68,21 +75,28 @@ class PersonDataImplTest {
     }
 
     @Test
-    public void should_throw_exception_when_add_existing_person() {
+    public void should_throw_exception_when_add_existing_person() throws AlreadyExistingException {
         Throwable throwable = null;
         Person expected = new Person();
-        expected.setFirstName("Julie");
-        expected.setLastName("Philip");
+        expected.setFirstName("Miguel");
+        expected.setLastName("Ruiz");
         expected.setAddress("2345 Calm St");
-        expected.setCity("Manishma");
+        expected.setCity("Lisboa");
         expected.setZip("67543");
         expected.setPhone("734-900-4367");
-        expected.setEmail("j.philip@car.fr");
+        expected.setEmail("m.ruiz@car.fr");
+        personData.add(expected);
         try {
             personData.add(expected);
         } catch (Throwable t) {
             throwable = t;
         }
         Assertions.assertTrue(throwable instanceof AlreadyExistingException);
+    }
+
+    @Test
+    public void should_delete_person_when_delete_person() {
+        Person person = personData.findByFirstNameAndLastName("Julie", "Philip");
+        personData.delete(person);
     }
 }

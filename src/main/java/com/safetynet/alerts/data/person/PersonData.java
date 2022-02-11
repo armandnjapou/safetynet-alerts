@@ -12,4 +12,5 @@ public interface PersonData {
     Person findByFirstNameAndLastName(String firstName, String lastName);
     void update(Person person);
     void add(Person person) throws AlreadyExistingException;
+    void delete(Person person);
 }

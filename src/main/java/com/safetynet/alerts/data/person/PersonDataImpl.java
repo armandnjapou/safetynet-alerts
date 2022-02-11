@@ -16,6 +16,7 @@ import org.json.simple.parser.ParseException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PersonDataImpl implements PersonData {
 
@@ -114,6 +115,28 @@ public class PersonDataImpl implements PersonData {
                 }
             } else throw new AlreadyExistingException("Already existing object in data store...");
         } else LOGGER.error("Null parameter for method : {}", methodName);
+        LOGGER.info("End of method : {}", methodName);
+    }
+
+    @Override
+    public void delete(Person person) {
+        methodName = "deletePerson";
+        LOGGER.info("Start of method : {}", methodName);
+        if(person != null) {
+            try {
+                List<Person> persons = findAll();
+                List <Person> personList = persons.stream()
+                        .filter(p -> p.getFirstName().equals(person.getFirstName()) && p.getLastName().equals(person.getLastName())).toList();
+                persons.removeAll(personList);
+                JSONArray personsArray = (JSONArray) JSONValue.parse(new ObjectMapper().writeValueAsString(persons));
+                JSONObject json = processData.buildJSONObject(Constants.PERSONS, personsArray);
+                processData.writeDataInJsonFile(Constants.JSON_PATH, json);
+            } catch (IOException e) {
+                LOGGER.error("IO Exception while finding all persons. Trace : {}", e.toString());
+            } catch (ParseException e) {
+                LOGGER.error("Parse exception while finding all persons. Trace : {}", e.toString());
+            }
+        } else LOGGER.error("Nothing to delete here...");
         LOGGER.info("End of method : {}", methodName);
     }
 }
