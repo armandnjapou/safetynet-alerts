@@ -1,5 +1,7 @@
 package com.safetynet.alerts.models;
 
+import java.util.Objects;
+
 public class Person {
     private String firstName;
     private String lastName;
@@ -66,5 +68,33 @@ public class Person {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Person person = (Person) o;
+
+        if (!Objects.equals(firstName, person.firstName)) return false;
+        if (!Objects.equals(lastName, person.lastName)) return false;
+        if (!Objects.equals(address, person.address)) return false;
+        if (!Objects.equals(city, person.city)) return false;
+        if (!Objects.equals(zip, person.zip)) return false;
+        if (!Objects.equals(phone, person.phone)) return false;
+        return Objects.equals(email, person.email);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = firstName != null ? firstName.hashCode() : 0;
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (address != null ? address.hashCode() : 0);
+        result = 31 * result + (city != null ? city.hashCode() : 0);
+        result = 31 * result + (zip != null ? zip.hashCode() : 0);
+        result = 31 * result + (phone != null ? phone.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        return result;
     }
 }

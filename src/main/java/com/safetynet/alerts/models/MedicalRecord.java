@@ -4,6 +4,7 @@ import com.safetynet.alerts.models.valueobjects.Allergy;
 import com.safetynet.alerts.models.valueobjects.Medication;
 
 import java.util.List;
+import java.util.Objects;
 
 public class MedicalRecord {
     private String firstName;
@@ -53,5 +54,29 @@ public class MedicalRecord {
 
     public void setAllergies(List<Allergy> allergies) {
         this.allergies = allergies;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        MedicalRecord that = (MedicalRecord) o;
+
+        if (!Objects.equals(firstName, that.firstName)) return false;
+        if (!Objects.equals(lastName, that.lastName)) return false;
+        if (!Objects.equals(birthdate, that.birthdate)) return false;
+        if (!Objects.equals(medications, that.medications)) return false;
+        return Objects.equals(allergies, that.allergies);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = firstName != null ? firstName.hashCode() : 0;
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (birthdate != null ? birthdate.hashCode() : 0);
+        result = 31 * result + (medications != null ? medications.hashCode() : 0);
+        result = 31 * result + (allergies != null ? allergies.hashCode() : 0);
+        return result;
     }
 }
