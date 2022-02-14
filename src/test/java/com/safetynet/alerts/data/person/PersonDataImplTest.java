@@ -71,7 +71,7 @@ class PersonDataImplTest {
         expected.setPhone("734-900-4367");
         expected.setEmail("j.philip@car.fr");
         personData.add(expected);
-        Assertions.assertEquals(personData.findByFirstNameAndLastName("Julie", "Philip").getFirstName(), expected.getFirstName());
+        Assertions.assertEquals(personData.findByFirstNameAndLastName("Julie", "Philip"), expected);
     }
 
     @Test
