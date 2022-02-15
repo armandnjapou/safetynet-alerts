@@ -1,5 +1,6 @@
 package com.safetynet.alerts.services.firestation;
 
+import com.safetynet.alerts.exceptions.AlreadyExistingException;
 import com.safetynet.alerts.models.FireStation;
 import org.json.simple.parser.ParseException;
 
@@ -8,4 +9,7 @@ import java.util.List;
 
 public interface FireStationService {
     List<FireStation> findAll() throws IOException, ParseException;
+    void add(FireStation fireStation) throws AlreadyExistingException;
+    void update(FireStation fireStation);
+    void delete(FireStation fireStation);
 }
