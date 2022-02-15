@@ -1,7 +1,11 @@
 package com.safetynet.alerts.data.person;
 
+import com.safetynet.alerts.data.ProcessData;
+import com.safetynet.alerts.data.ProcessDataImpl;
 import com.safetynet.alerts.exceptions.AlreadyExistingException;
 import com.safetynet.alerts.models.Person;
+import com.safetynet.alerts.utils.Constants;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
@@ -15,16 +19,18 @@ import java.util.Objects;
 class PersonDataImplTest {
 
     private static PersonData personData;
+    private static final ProcessData processData = new ProcessDataImpl();
+    private static JSONObject data;
 
     @BeforeAll
-    public static void setUp() {
+    public static void setUp() throws IOException, ParseException {
         personData = new PersonDataImpl();
+        data  = processData.readDatafromJsonFile(Constants.JSON_PATH);
     }
 
     @AfterAll
     public static void tearDown() {
-        Person p = personData.findByFirstNameAndLastName("Miguel", "Ruiz");
-        personData.delete(p);
+        processData.writeDataInJsonFile(Constants.JSON_PATH, data);
     }
 
     @Test

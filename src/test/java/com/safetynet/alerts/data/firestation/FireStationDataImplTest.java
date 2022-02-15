@@ -1,7 +1,11 @@
 package com.safetynet.alerts.data.firestation;
 
+import com.safetynet.alerts.data.ProcessData;
+import com.safetynet.alerts.data.ProcessDataImpl;
 import com.safetynet.alerts.exceptions.AlreadyExistingException;
 import com.safetynet.alerts.models.FireStation;
+import com.safetynet.alerts.utils.Constants;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
@@ -15,18 +19,18 @@ import java.util.Objects;
 class FireStationDataImplTest {
     private static FireStationData fireStationData;
     private static Throwable throwable;
+    private static final ProcessData processData = new ProcessDataImpl();
+    private static JSONObject data;
 
     @BeforeAll
-    private static void setUp() {
+    private static void setUp() throws IOException, ParseException {
         fireStationData = new FireStationDataImpl();
+        data = processData.readDatafromJsonFile(Constants.JSON_PATH);
     }
 
     @AfterAll
     public static void tearDown() {
-        FireStation fireStation = new FireStation();
-        fireStation.setStation(3);
-        fireStation.setAddress("56 Bd Foch");
-        fireStationData.delete(fireStation);
+        processData.writeDataInJsonFile(Constants.JSON_PATH, data);
     }
 
     @Test
