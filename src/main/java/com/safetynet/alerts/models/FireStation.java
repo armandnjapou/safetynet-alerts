@@ -35,11 +35,4 @@ public class FireStation {
         if (station != that.station) return false;
         return Objects.equals(address, that.address);
     }
-
-    @Override
-    public int hashCode() {
-        int result = address != null ? address.hashCode() : 0;
-        result = 31 * result + station;
-        return result;
-    }
 }

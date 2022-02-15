@@ -69,14 +69,4 @@ public class MedicalRecord {
         if (!Objects.equals(medications, that.medications)) return false;
         return Objects.equals(allergies, that.allergies);
     }
-
-    @Override
-    public int hashCode() {
-        int result = firstName != null ? firstName.hashCode() : 0;
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + (birthdate != null ? birthdate.hashCode() : 0);
-        result = 31 * result + (medications != null ? medications.hashCode() : 0);
-        result = 31 * result + (allergies != null ? allergies.hashCode() : 0);
-        return result;
-    }
 }
