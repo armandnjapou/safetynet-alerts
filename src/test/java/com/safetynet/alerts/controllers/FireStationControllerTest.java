@@ -2,7 +2,6 @@ package com.safetynet.alerts.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.alerts.models.FireStation;
-import com.safetynet.alerts.models.Person;
 import com.safetynet.alerts.services.firestation.FireStationService;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
@@ -56,7 +55,7 @@ class FireStationControllerTest {
     }
 
     @Test
-    public void should_return_200_when_delete_person() throws Exception {
+    public void should_return_200_when_delete_fire_station() throws Exception {
         FireStation fireStation = new FireStation();
         fireStation.setAddress("20 Bd Stop");
         fireStation.setStation(5);
