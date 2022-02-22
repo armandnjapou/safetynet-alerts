@@ -2,7 +2,9 @@ package com.safetynet.alerts.controllers;
 
 import com.safetynet.alerts.exceptions.AlreadyExistingException;
 import com.safetynet.alerts.models.FireStation;
+import com.safetynet.alerts.models.Person;
 import com.safetynet.alerts.services.firestation.FireStationService;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -43,5 +45,10 @@ public class FireStationController {
     @DeleteMapping("/firestation")
     public void deleteFireStation(@RequestBody FireStation fireStation) {
         fireStationService.delete(fireStation);
+    }
+
+    @GetMapping(value = "/firestation", params = "stationNumber")
+    public JSONObject getPersonsCoveredByFireStation(@RequestParam("stationNumber") int stationNumber) throws IOException, ParseException {
+        return fireStationService.getPersonsCoveredByFireStation(stationNumber);
     }
 }

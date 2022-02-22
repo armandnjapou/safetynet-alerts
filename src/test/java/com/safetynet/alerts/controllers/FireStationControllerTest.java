@@ -65,4 +65,10 @@ class FireStationControllerTest {
                 .content(json.toJSONString())
         ).andExpect(status().isOk());
     }
+
+    @Test
+    public void should_return_200_when_get_persons_covered_by_fire_station() throws Exception {
+        mockMvc.perform(get("/firestation?stationNumber=2"))
+                .andExpect(status().isOk());
+    }
 }
