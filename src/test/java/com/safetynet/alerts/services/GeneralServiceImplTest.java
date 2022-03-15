@@ -6,6 +6,7 @@ import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,5 +26,11 @@ class GeneralServiceImplTest {
     public void should_return_null_when_get_children_from_unknown_address() throws IOException, ParseException {
         JSONObject expected = service.getChildrenFromAddress("Unknown address");
         assertNull(expected);
+    }
+
+    @Test
+    public void should_return_list_of_size_1_when_get_phone_numbers_by_fire_station_number_2() throws IOException, ParseException {
+        List<String> phoneNumbers = service.getPhoneNumbersByStationNumber(2);
+        assertEquals(1, phoneNumbers.size());
     }
 }
