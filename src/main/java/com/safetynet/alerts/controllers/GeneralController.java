@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 public class GeneralController {
@@ -19,5 +20,10 @@ public class GeneralController {
     @GetMapping(value = "/childAlert", params = "address")
     public JSONObject getChildFromAddress(@RequestParam("address") String address) throws IOException, ParseException {
         return service.getChildrenFromAddress(address);
+    }
+
+    @GetMapping(value = "/phoneAlert", params = "firestation")
+    public List<String> getPhoneNumbersByFireStationNumber(@RequestParam("firestation") int stationNumber) throws IOException, ParseException {
+        return service.getPhoneNumbersByStationNumber(stationNumber);
     }
 }

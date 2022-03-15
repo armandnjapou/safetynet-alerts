@@ -8,6 +8,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = GeneralController.class)
@@ -21,6 +22,12 @@ class GeneralControllerTest {
     @Test
     public void should_return_200_when_get_children_from_address() throws Exception {
         mockMvc.perform(get("/childAlert?address=892%20Downing%20Ct"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void should_return_200_when_get_phone_numbers_by_fire_station_number() throws Exception {
+        mockMvc.perform(get("/phoneAlert?firestation=2"))
                 .andExpect(status().isOk());
     }
 }
