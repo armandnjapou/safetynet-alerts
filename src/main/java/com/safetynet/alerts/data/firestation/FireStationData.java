@@ -14,4 +14,5 @@ public interface FireStationData {
     void add(FireStation fireStation) throws AlreadyExistingException;
     void update(FireStation fireStation);
     void delete(FireStation fireStation);
+    FireStation findByStationNumber(int stationNumber) throws IOException, ParseException;
 }

@@ -5,7 +5,6 @@ import com.safetynet.alerts.data.ProcessData;
 import com.safetynet.alerts.data.ProcessDataImpl;
 import com.safetynet.alerts.exceptions.AlreadyExistingException;
 import com.safetynet.alerts.models.FireStation;
-import com.safetynet.alerts.models.Person;
 import com.safetynet.alerts.utils.Constants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -131,5 +130,14 @@ public class FireStationDataImpl implements FireStationData {
             }
         } else LOGGER.error("Null parameter passed...");
         LOGGER.info("End method {}", methodName);
+    }
+
+    @Override
+    public FireStation findByStationNumber(int stationNumber) throws IOException, ParseException {
+        List<FireStation> fireStations = findAll();
+        return fireStations.stream()
+                .filter(f -> f.getStation() == stationNumber)
+                .findAny()
+                .orElse(null);
     }
 }
