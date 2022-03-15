@@ -6,6 +6,7 @@ import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,5 +33,14 @@ class GeneralServiceImplTest {
     public void should_return_list_of_size_1_when_get_phone_numbers_by_fire_station_number_2() throws IOException, ParseException {
         List<String> phoneNumbers = service.getPhoneNumbersByStationNumber(2);
         assertEquals(1, phoneNumbers.size());
+    }
+
+    @Test
+    public void should_return_list_of_size_2_when_get_flood_from_station_1_and_2() throws IOException, ParseException {
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        JSONArray expected = service.getFloodByStations(list);
+        assertEquals(2, expected.size());
     }
 }
