@@ -30,4 +30,10 @@ class GeneralControllerTest {
         mockMvc.perform(get("/phoneAlert?firestation=2"))
                 .andExpect(status().isOk());
     }
+
+    @Test
+    public void should_return_200_when_get_flood_from_stations() throws Exception {
+        mockMvc.perform(get("/flood/stations?stations=1,2,3"))
+                .andExpect(status().isOk());
+    }
 }

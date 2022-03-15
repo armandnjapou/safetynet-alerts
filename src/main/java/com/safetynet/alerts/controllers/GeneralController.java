@@ -1,6 +1,7 @@
 package com.safetynet.alerts.controllers;
 
 import com.safetynet.alerts.services.GeneralService;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +26,10 @@ public class GeneralController {
     @GetMapping(value = "/phoneAlert", params = "firestation")
     public List<String> getPhoneNumbersByFireStationNumber(@RequestParam("firestation") int stationNumber) throws IOException, ParseException {
         return service.getPhoneNumbersByStationNumber(stationNumber);
+    }
+
+    @GetMapping(value = "/flood/stations", params = "stations")
+    public JSONArray getFloodByStations(@RequestParam List<Integer> stations) throws IOException, ParseException {
+        return service.getFloodByStations(stations);
     }
 }
