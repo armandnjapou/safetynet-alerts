@@ -13,4 +13,8 @@ public interface GeneralService {
     List<String> getPhoneNumbersByStationNumber(int stationNumber) throws IOException, ParseException;
 
     JSONArray getFloodByStations(List<Integer> stations) throws IOException, ParseException;
+
+    JSONObject getPersonInfo(String firstName, String lastName) throws IOException, ParseException;
+
+    List<String> getCommunityEmail(String city) throws IOException, ParseException;
 }

@@ -113,10 +113,57 @@ public class GeneralServiceImpl implements GeneralService {
                         object.put("allergies", medicalRecord.getAllergies());
                         personsInHome.add(object);
                     }
-                    home.put("station "+ i, personsInHome);
+                    home.put("station " + i, personsInHome);
                     result.add(home);
                 } else LOGGER.error("No person found for address : {}", f.getAddress());
-            } else LOGGER.error("No firestation found for station number : {}", i);
+            } else LOGGER.error("No fire station found for station number : {}", i);
+        }
+        LOGGER.info("End method : {}", methodName);
+        return result;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public JSONObject getPersonInfo(String firstName, String lastName) throws IOException, ParseException {
+        String methodName = "getPersonInfo";
+        LOGGER.info("Start method : {}", methodName);
+        JSONObject result = new JSONObject();
+        List<Person> people = personData.findAll().stream()
+                .filter(person -> person.getFirstName().equals(firstName) && person.getLastName().equals(lastName))
+                .toList();
+        if (!people.isEmpty()) {
+            JSONArray persons = new JSONArray();
+            for (Person p : people) {
+                JSONObject object = new JSONObject();
+                MedicalRecord medicalRecord = medicalRecordData.findByFirstNameAndLastName(p.getFirstName(), p.getLastName());
+                int age = Utils.computeAgeFromBirthdate(medicalRecord.getBirthdate());
+                object.put("firstName", p.getFirstName());
+                object.put("lastName", p.getLastName());
+                object.put("address", p.getAddress());
+                object.put("email", p.getEmail());
+                object.put("age", age);
+                object.put("medications", medicalRecord.getMedications());
+                object.put("allergies", medicalRecord.getAllergies());
+                persons.add(object);
+            }
+            result.put("persons", persons);
+        } else LOGGER.error("No person found with firstname : {} and lastname : {}", firstName, lastName);
+        LOGGER.info("End method : {}", methodName);
+        return result;
+    }
+
+    @Override
+    public List<String> getCommunityEmail(String city) throws IOException, ParseException {
+        String methodName = "getCommunityEmail";
+        LOGGER.info("Start method : {}", methodName);
+        List<String> result = new ArrayList<>();
+        List<Person> people = personData.findAll().stream()
+                .filter(p -> p.getCity().equals(city))
+                .toList();
+        if (!people.isEmpty()) {
+            for (Person p : people) {
+                result.add(p.getEmail());
+            }
         }
         LOGGER.info("End method : {}", methodName);
         return result;

@@ -36,4 +36,16 @@ class GeneralControllerTest {
         mockMvc.perform(get("/flood/stations?stations=1,2,3"))
                 .andExpect(status().isOk());
     }
+
+    @Test
+    public void should_return_200_when_get_personal_infos() throws Exception {
+        mockMvc.perform(get("/personInfo?firstName=Jules&lastName=Tortue"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void should_return_200_when_get_community_email() throws Exception {
+        mockMvc.perform(get("/communityEmail?city=Paris"))
+                .andExpect(status().isOk());
+    }
 }
